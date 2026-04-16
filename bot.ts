@@ -34,14 +34,33 @@ namespace bot {
      */
     //% block
     export function drive(direction: BotDirection, duration: number): void {
-        // Add code here
+        if(direction == BotDirection.Forward) {
+            pins.servoWritePin(leftMotor,180);
+            pins.servoWritePin(rightMotor, 0);
+        } else if (direction == BotDirection.Backward) {
+            pins.servoWritePin(leftMotor, 0);
+            pins.servoWritePin(rightMotor, 180);
+        } else if (direction == BotDirection.Left) {
+            pins.servoWritePin(leftMotor, 0);
+            pins.servoWritePin(rightMotor, 0);
+        } else if (direction == BotDirection.Right) {
+            pins.servoWritePin(leftMotor, 180);
+            pins.servoWritePin(rightMotor, 180);
+        }
+
+        if(duration > 0 ) {
+            pause(duration);
+            pins.servoWritePin(leftMotor, 90);
+            pins.servoWritePin(rightMotor, 90);
+        }
     }
 
     /**
      * Stop the robot
      */
     //% block
-    export function stop(value: number): void {
-        // add code here
+    export function stop(): void {
+        pins.servoWritePin(leftMotor, 90);
+        pins.servoWritePin(rightMotor, 90);
     }
 }
